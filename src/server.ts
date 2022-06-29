@@ -22,6 +22,16 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.get('/file/:id', async (req, res) => {
+  const file = await File.mongooseModel.findById(req.params.id);
+
+  // eslint-disable-next-line no-plusplus
+  file.downloadCount++;
+  await file.save();
+
+  res.download(file.path, file.originalName);
+});
+
 app.post('/upload', upload.single('file'), async (req, res) => {
   const fileData = {
     path: req.file.path,
@@ -34,8 +44,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 
   const file = await File.mongooseModel.create(fileData);
-  console.log(file);
-  res.send(file.originalName);
+
+  res.render('index', { fileLink: `${req.headers.origin}/file/${file.id}` });
 });
 
 app.listen(process.env.PORT, () => console.log('Server ON !!!'));
