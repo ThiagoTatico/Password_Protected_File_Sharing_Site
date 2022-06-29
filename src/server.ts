@@ -1,9 +1,13 @@
 import bcrypt from 'bcrypt';
-import config from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
+
+import File from './models/File';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config();
 
 const app = express();
 
@@ -28,6 +32,10 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   if (req.body.password != null && req.body.password !== '') {
     fileData.password = await bcrypt.hash(req.body.password, 10);
   }
+
+  const file = await File.mongooseModel.create(fileData);
+  console.log(file);
+  res.send(file.originalName);
 });
 
 app.listen(process.env.PORT, () => console.log('Server ON !!!'));
