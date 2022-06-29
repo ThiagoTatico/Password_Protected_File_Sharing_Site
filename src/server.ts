@@ -1,4 +1,5 @@
-import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import config from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
@@ -17,8 +18,16 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/upload', upload.single('file'), (req, res) => {
-  res.send('hiii');
+app.post('/upload', upload.single('file'), async (req, res) => {
+  const fileData = {
+    path: req.file.path,
+    originalName: req.file.originalname,
+    password: '',
+  };
+
+  if (req.body.password != null && req.body.password !== '') {
+    fileData.password = await bcrypt.hash(req.body.password, 10);
+  }
 });
 
 app.listen(process.env.PORT, () => console.log('Server ON !!!'));

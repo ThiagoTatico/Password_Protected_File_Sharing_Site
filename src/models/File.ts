@@ -17,4 +17,6 @@ const File = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('File', File);
+const mongooseModel = mongoose.model('File', File);
+
+export { mongooseModel };
