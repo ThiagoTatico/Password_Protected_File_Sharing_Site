@@ -7,22 +7,31 @@
   <title>Password Protected File_Sharing</title>
 </head>
 
-<body>
+<body style="
+font-size: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+">
   <% if (locals.fileLink != null) { %>
-    <div style="margin-bottom: 1rem; align-items: center;">
+    <div style="margin-bottom: 1rem;" >
       Your file is upload
       <a href="<%= locals.fileLink %>"> <%= locals.fileLink %> </a>
     </div>
   <% } %>
 
-  <form action="/upload" method="post" style="display: grid; gap: .5rem; grid-template-columns: auto 1fr; max-width: 500px; margin: 0 auto;" enctype="multipart/form-data">
+  <form style="
+    gap: .5rem;
+    margin: 0 auto;" action="/upload" method="post" enctype="multipart/form-data">
+
     <label for="file">File:</label>
-    <input type="file" id="file" name="file" required />
+    <input style="font-size: 20px;" type="file" id="file" name="file" required />
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" />
 
-    <button style="grid-column: span 2;" type="submit">Share</button>
+    <button style="grid-column: span 2; font-size: 20px;" type="submit">Share</button>
   </form>
 </body>
 
