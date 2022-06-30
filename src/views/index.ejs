@@ -4,34 +4,27 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/main.css" />
   <title>Password Protected File_Sharing</title>
 </head>
 
-<body style="
-font-size: 30px;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-">
+<body>
   <% if (locals.fileLink != null) { %>
-    <div style="margin-bottom: 1rem;" >
+    <div class="mainDiv" >
       Your file is upload
       <a href="<%= locals.fileLink %>"> <%= locals.fileLink %> </a>
     </div>
   <% } %>
 
-  <form style="
-    gap: .5rem;
-    margin: 0 auto;" action="/upload" method="post" enctype="multipart/form-data">
+  <form action="/upload" method="post" enctype="multipart/form-data">
 
     <label for="file">File:</label>
-    <input style="font-size: 20px;" type="file" id="file" name="file" required />
+    <input type="file" id="file" name="file" required />
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" />
 
-    <button style="grid-column: span 2; font-size: 20px;" type="submit">Share</button>
+    <button type="submit">Share</button>
   </form>
 </body>
 
