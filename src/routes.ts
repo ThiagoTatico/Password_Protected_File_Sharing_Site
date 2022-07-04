@@ -15,7 +15,9 @@ routes.get('/', (req, res) => {
 routes.post('/upload', upload.single('file'), async (req, res) => {
   const file = await handleUpload(req);
 
-  res.render('index', { fileLink: `${req.headers.origin}/file/${file.id}` });
+  res.render('index', {
+    fileLink: `${process.env.APP_BASE_URL}/file/${file.id}`,
+  });
 });
 
 routes.route('/file/:id').get(handleDownload).post(handleDownload);
