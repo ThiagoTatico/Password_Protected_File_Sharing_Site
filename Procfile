@@ -1,0 +1,1 @@
+worker: npx ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts
